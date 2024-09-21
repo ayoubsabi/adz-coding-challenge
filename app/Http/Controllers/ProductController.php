@@ -62,7 +62,7 @@ class ProductController extends Controller
             new ProductResource(
                 $this->productService->getProductById($id)
             ),
-            Response::HTTP_CREATED
+            Response::HTTP_OK
         );
     }
 
