@@ -17,15 +17,16 @@ class LocalFileUploadService
      * Saves the uploaded file to the specified path and returns the generated file name.
      * 
      * @param UploadedFile $file
-     * @param string $path
+     * @param string $dirPath
      * 
      * @return string
      */
-    public function save(UploadedFile $file, string $path): string
+    public function save(UploadedFile $file, string $dirPath): string
     {
         $fileName = $this->generateFileName($file);
+        $filePath = sprintf('%s/%s', $dirPath, $fileName);
 
-        if (!$file->store($path)) {
+        if (!$this->filesystem->put($filePath, $file)) {
             throw new FileUploadFailureException();
         }
 
